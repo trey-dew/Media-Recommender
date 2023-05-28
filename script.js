@@ -7,7 +7,7 @@ searchInput.addEventListener("input", (e) => {
             "method": "GET",
             "headers": {
                 "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
-                "X-RapidAPI-Key": process.env.Rapid_API_Key
+                "X-RapidAPI-Key": "5a7bc83a69mshf40020bb07e2016p127dd1jsn1036865972e7"
         }   
         })
     .then(response => response.json())
