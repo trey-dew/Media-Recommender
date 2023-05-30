@@ -33,3 +33,26 @@ fetch(genreRetreiver, {
         document.querySelector('.Recommend').innerHTML = movieList.join('');    
     })
 }) 
+
+var genresArray = [];
+var buttonDisabled = false;
+
+function addToArray(value, button){
+    if(!buttonDisabled){
+        genresArray.push(value);
+        console.log(genresArray);
+
+        buttonDisabled = true;
+        button.classList.add("disabled");
+    
+        setTimeout(function() {
+          buttonDisabled = false;
+          button.classList.remove("disabled");
+        }, 2000);
+    }
+}
+if(genresArray.length > 0){
+    
+        console.log("hi");
+    
+}

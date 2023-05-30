@@ -107,3 +107,7 @@ font-size: 1rem;
   width: 80%;
   height: auto;
 }
+.circle-button.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
