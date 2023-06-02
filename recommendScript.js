@@ -1,10 +1,12 @@
 //for loop of x genres
+const API_KEY = "1100556013mshe9132b97a7ca03fp18dfcejsnd84db29d9e19";
 var genre = "adventure";
 var limiter = 1;
 var genresArray = [];
 var buttonDisabled = false;
 var genreMovieList = [];
 var gatheredMovies = [];
+var suggestedGenre = "adventure"
 function genreRetreiverFunc()
 {
     const genreRetreiver = "https://online-movie-database.p.rapidapi.com/title/v2/get-popular-movies-by-genre?genre=" + genre + "&limit=1";
@@ -12,9 +14,7 @@ function genreRetreiverFunc()
         "method": "GET",
         "headers": {
             "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
-            //"X-RapidAPI-Key": "5a7bc83a69mshf40020bb07e2016p127dd1jsn1036865972e7"
-
-            "X-RapidAPI-Key": "dee2d52c57msh49ccc6c0a727840p13c396jsnb36a44149947"
+            "X-RapidAPI-Key": API_KEY
     }   
     })
     .then(response => response.json())
@@ -33,9 +33,7 @@ function genreRetreiverFunc()
                 "method": "GET",
                 "headers": {
                     "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
-                    //"X-RapidAPI-Key": "5a7bc83a69mshf40020bb07e2016p127dd1jsn1036865972e7"
-
-                    "X-RapidAPI-Key": "dee2d52c57msh49ccc6c0a727840p13c396jsnb36a44149947"
+                    "X-RapidAPI-Key": API_KEY
             }   
             })
             .then(response => response.json())
@@ -43,7 +41,7 @@ function genreRetreiverFunc()
                 
                 const list = data.d;
                 var movieList = [];
-                list.map((item) => {
+                list.map((item) => {                   
                     const name = item.l;
                     const poster = item.i.imageUrl;
                     const movie = `<li><img src="${poster}"> <h2>${name} - ${genre}</h2></li>`;
@@ -60,88 +58,104 @@ genreRetreiverFunc();
 
 function suggestions()
 {
-    var suggestedGenre;
-    switch(true == true){
-        case genresArray[0] == true:
-            suggestedGenre = "adventure";
-            genre = "adventure";
-            break;
-        case genresArray[1] == true:
-            suggestedGenre = "action";
-            genre = "action";
-            break;
-        case genresArray[2] == true:
-            suggestedGenre = "drama";
-            genre = "drama";
-            break;
-        case genresArray[3] == true:
-            suggestedGenre = "comedy";
-            genre = "comedy";
-            break;
-        case genresArray[4] == true:
-            suggestedGenre = "romance";
-            genre = "romance";
-            break;
-        case genresArray[5] == true:
-            suggestedGenre = "fantasy";
-            genre = "fantasy";
-            break;
-    } 
+    console.log(genresArray)
+    for(var i =0; i < 1;i++)
+    {
+            if(genresArray[0] == true){
+                suggestedGenre = "adventure";
+                genre = "adventure";
+                //genresArray[0] = false;
+                suggestThoseGenres();          
+            } if(genresArray[1] == true){
+                suggestedGenre = "action";
+                genre = "action";
+                //genresArray[1] = false;
+                suggestThoseGenres();
+            } if(genresArray[2] == true){
+                suggestedGenre = "drama";
+                genre = "drama";
+                //genresArray[2] = false;
+                suggestThoseGenres();
+            } if(genresArray[3] == true){
+                suggestedGenre = "comedy";
+                genre = "comedy";
+                //genresArray[3] = false;
+                suggestThoseGenres();
+            }if(genresArray[4] == true){
+                suggestedGenre = "romance";
+                genre = "romance";
+                //genresArray[4] = false;
+                suggestThoseGenres();
+            }if(genresArray[5] == true){
+                suggestedGenre = "fantasy";
+                genre = "fantasy";
+                //genresArray[5] = false;
+                suggestThoseGenres();
+            }if(genresArray[5] ==false && genresArray[4] ==false && genresArray[3] ==false && genresArray[2] ==false && genresArray[1] ==false && genresArray[0] ==false){
+                console.log("all done");
+            }
+    }
+
     
+    function suggestThoseGenres()
+    {
+        const genreRetreivers = "https://online-movie-database.p.rapidapi.com/title/v2/get-popular-movies-by-genre?genre=" + suggestedGenre + "&limit=5";
+        fetch(genreRetreivers, {
+            "method": "GET",
+            "headers": {
+                "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
+                "X-RapidAPI-Key": API_KEY
+        }   
+        })
+        .then(response => response.json())
+        .then(data => {
+            var topMoviesInGenre;        
+            var moviesList = [];
+            moviesList = data;
 
-    const genreRetreiver = "https://online-movie-database.p.rapidapi.com/title/v2/get-popular-movies-by-genre?genre=" + suggestedGenre + "&limit=5";
-    fetch(genreRetreiver, {
-        "method": "GET",
-        "headers": {
-            "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
-            //"X-RapidAPI-Key": "5a7bc83a69mshf40020bb07e2016p127dd1jsn1036865972e7"
+            //console.log(moviesList);
+            
+                for(var i =0; i < moviesList.length; i++)
+                {
+                    for(let j =0; j < 1000000; j++)
+                    {
+                        var coup = [];
+                        coup[j] = j;
+                    }
+                    topMoviesInGenre = data[i].toString().slice(1,-1);
+                    gatheredMovies[i] = topMoviesInGenre; 
 
-            "X-RapidAPI-Key": "dee2d52c57msh49ccc6c0a727840p13c396jsnb36a44149947"
-    }   
-    })
-    .then(response => response.json())
-    .then(data => {
-        var topMoviesInGenre;        
-        var moviesList = [];
-        moviesList = data;
+                    const searchs = "https://online-movie-database.p.rapidapi.com/auto-complete?q=" + gatheredMovies[i];  
+                                fetch(searchs, {
+                                    "method": "GET",
+                                    "headers": {
+                                        "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
+                                        "X-RapidAPI-Key": API_KEY
+                                    }   
+                                })
+                                .then(response => response.json())
+                                .then(data => {  
+                                    console.log(data)                  
+                                    const lists = data.d;                    
+                                    lists.map((item) => {
+                                        //console.log(item);
+                                        const name = item.l;
+                                        const poster = item.i.imageUrl;
+                                        const movie = `<li><img src="${poster}"> <h2>${name}</h2></li>`;
+                                        genreMovieList.push(movie);
+                                    })
 
-        //console.log(moviesList);
-        for(var i =0; i < moviesList.length; i++)
-        {
-            topMoviesInGenre = data[i].toString().slice(1,-1);
-            gatheredMovies[i] = topMoviesInGenre;
-        }
-    })
-        console.log(gatheredMovies);
-
-
-        for(var i = 0; i < gatheredMovies.length; i++)
-        {
-            const search = "https://online-movie-database.p.rapidapi.com/auto-complete?q=" + gatheredMovies[i];  
-                fetch(search, {
-                    "method": "GET",
-                    "headers": {
-                        "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com",
-                        //"X-RapidAPI-Key": "5a7bc83a69mshf40020bb07e2016p127dd1jsn1036865972e7"
-
-                        "X-RapidAPI-Key": "dee2d52c57msh49ccc6c0a727840p13c396jsnb36a44149947"
-                    }   
-                })
-                .then(response => response.json())
-                .then(data => {                    
-                    const list = data.d;                    
-                    list.map((item) => {
-                        const name = item.l;
-                        const poster = item.i.imageUrl;
-                        const movie = `<li><img src="${poster}"> <h2>${name} - ${genre}</h2></li>`;
-                        genreMovieList.push(movie);
-                    })
-
-                    document.querySelector('.Recommend').innerHTML = genreMovieList.join('');
-            })
-        }
+                                    document.querySelector('.Recommend').innerHTML = genreMovieList.join('');
+                                    console.log("this happend");
+                                })
+                }
+                             
+        })    
+    }
 }
 
+
+    
 function addToArray(value, button){
     if(!buttonDisabled){
         genresArray.push(value);
@@ -178,7 +192,7 @@ function addToArray(value, button){
             break;
         case genresArray.length > 5:
              suggestions();
-            break;       
+            break;     
     }
 
     
