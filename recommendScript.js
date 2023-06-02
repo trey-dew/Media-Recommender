@@ -1,5 +1,5 @@
 //for loop of x genres
-const API_KEY = "5a0459df15msha4cef14ec1ae44dp1eedb4jsn61504ae18d84";
+const API_KEY = "";
 var genre = "adventure";
 var limiter = 1;
 var genresArray = [];
